@@ -11,7 +11,7 @@ learn = load_learner('dogIdentifierModel.pkl')
 
 image = gr.inputs.Image(shape=(192, 192))
 label = gr.outputs.Label()
-examples = ['german-shepherd.jpg', 'golden-retriever.jpg', 'dobermann.jpg']
+examples = ['german-shepherd.jpg', 'golden-retriever.jpg', 'dobermann.jpg', 'golden-doodle.jpg']
 
 intf = gr.Interface(fn=classify_image, inputs=image, outputs=label, examples=examples)
 intf.launch(inline=False)
