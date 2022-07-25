@@ -1,7 +1,7 @@
 from fastai.vision.all import *
 import gradio as gr
 
-searchText = ('Golden Retreiver','German Shepherd', 'Dobermann', 'Golden Doodle')
+searchText = ('Golden Retriever','German Shepherd', 'Dobermann', 'Poodle')
 
 def classify_image(img):
     pred,idx,probs = learn.predict(img)
@@ -11,7 +11,7 @@ learn = load_learner('dogIdentifierModel.pkl')
 
 image = gr.inputs.Image(shape=(192, 192))
 label = gr.outputs.Label()
-examples = ['german-shepherd.jpg', 'golden-retriever.jpg', 'dobermann.jpg', 'golden-doodle.jpg']
+examples = ['german-shepherd.jpg', 'golden-retriever.jpg', 'dobermann.jpg', 'poodle.jpg']
 
 intf = gr.Interface(fn=classify_image, inputs=image, outputs=label, examples=examples)
 intf.launch(inline=False)
