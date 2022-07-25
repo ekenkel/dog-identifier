@@ -1,7 +1,7 @@
 from fastai.vision.all import *
 import gradio as gr
 
-searchText = ('Golden Retriever', 'German Shepherd', 'Dobermann', 'Poodle')
+searchText = ('Dobermann', 'German Shepherd', 'Golden Retriever', 'Poodle')
 
 def classify_image(img):
     pred,idx,probs = learn.predict(img)
