@@ -11,7 +11,7 @@ from azure.cognitiveservices.search.imagesearch import ImageSearchClient as api
 from msrest.authentication import CognitiveServicesCredentials as auth
 
 
-def search_images_bing(key, term, min_sz=128, max_images=100):
+def search_images_bing(key, term, min_sz=128, max_images=150):
     params = {'q': term, 'count': max_images, 'min_height': min_sz, 'min_width': min_sz}
     headers = {"Ocp-Apim-Subscription-Key": key}
     search_url = "https://api.bing.microsoft.com/v7.0/images/search"
@@ -48,7 +48,7 @@ for o in searchText:
     try:
         dest = (path / o)
         dest.mkdir(exist_ok=True, parents=True)
-        results = search_images_bing(key, f'{o} photo')
+        results = search_images_bing(key, f'{o} dog photo')
         download_images(dest, urls=results.attrgot('contentUrl'))
     except shutil.SameFileError:
         pass
