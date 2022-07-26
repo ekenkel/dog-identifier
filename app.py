@@ -1,7 +1,12 @@
 from fastai.vision.all import *
 import gradio as gr
+import requests
+import json
 
-searchText = ('Dobermann', 'German Shepherd', 'Golden Retriever', 'Poodle')
+URL = 'https://dog.ceo/api/breeds/list/all'
+
+result = requests.get(url = URL).json()
+searchText = [val for val in result['message']]
 
 def classify_image(img):
     pred,idx,probs = learn.predict(img)
