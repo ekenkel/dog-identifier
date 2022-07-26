@@ -5,24 +5,31 @@ from fastai.vision.all import *
 # import gradio as gr
 import os, shutil
 import time
-
-def search_images(term, max_images=200):
-    url = 'https://duckduckgo.com/'
-    res = urlread(url,data={'q':term})
-    searchObj = re.search(r'vqd=([\d-]+)\&', res)
-    requestUrl = url + 'i.js'
-    params = dict(l='us-en', o='json', q=term, vqd=searchObj.group(1), f=',,,', p='1', v7exp='a')
-    urls,data = set(),{'next':1}
-    while len(urls)<max_images and 'next' in data:
-        data = urljson(requestUrl,data=params)
-        urls.update(L(data['results']).itemgot('image'))
-        requestUrl = url + data['next']
-        time.sleep(0.2)
-    return L(urls)[:max_images]
+import requests
+import json
+from azure.cognitiveservices.search.imagesearch import ImageSearchClient as api
+from msrest.authentication import CognitiveServicesCredentials as auth
 
 
-searchText = ('Golden Retriever', 'German Shepherd', 'Dobermann', 'Poodle')
+def search_images_bing(key, term, min_sz=128, max_images=100):
+    params = {'q': term, 'count': max_images, 'min_height': min_sz, 'min_width': min_sz}
+    headers = {"Ocp-Apim-Subscription-Key": key}
+    search_url = "https://api.bing.microsoft.com/v7.0/images/search"
+    response = requests.get(search_url, headers=headers, params=params)
+    response.raise_for_status()
+    search_results = response.json()
+    return L(search_results['value'])
+
+
+URL = 'https://dog.ceo/api/breeds/list/all'
+
+result = requests.get(url = URL).json()
+searchText = [val for val in result['message']]
+
 path = Path('Dog_Types')
+
+key = os.environ.get('AZURE_SEARCH_KEY', 'INSERT KEY HERE')
+
 if not path.exists():
     path.mkdir()
 else:
@@ -38,13 +45,18 @@ else:
             print('Failed to delete %s. Reason: %s' % (file_path, e))
 
 for o in searchText:
-    dest = (path / o)
-    dest.mkdir(exist_ok=True, parents=True)
-    download_images(dest, urls=search_images(f'{o} photo'))
-    resize_images(path / o, max_size=400, dest=path / o)
+    try:
+        dest = (path / o)
+        dest.mkdir(exist_ok=True, parents=True)
+        results = search_images_bing(key, f'{o} photo')
+        download_images(dest, urls=results.attrgot('contentUrl'))
+    except shutil.SameFileError:
+        pass
 
-failed = verify_images(get_image_files(path))
-failed.map(Path.unlink)
+for breed in searchText:
+    failed = verify_images(get_image_files(f'{path}/{breed}'))
+    failed.map(Path.unlink)
+
 
 dataloaders = DataBlock(
     blocks=(ImageBlock, CategoryBlock),
@@ -54,7 +66,6 @@ dataloaders = DataBlock(
     item_tfms=Resize(128)
 ).dataloaders(path)
 
-dataloaders.show_batch(max_n=6)
 
 learn = vision_learner(dataloaders, resnet18, metrics=error_rate)
 learn.fine_tune(20)
