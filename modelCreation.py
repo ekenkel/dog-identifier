@@ -68,6 +68,6 @@ dataloaders = DataBlock(
 
 
 learn = vision_learner(dataloaders, resnet18, metrics=error_rate)
-learn.fine_tune(20)
+learn.fine_tune(25)
 
 learn.export('dogIdentifierModel.pkl')
