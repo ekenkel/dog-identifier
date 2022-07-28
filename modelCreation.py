@@ -11,7 +11,7 @@ from azure.cognitiveservices.search.imagesearch import ImageSearchClient as api
 from msrest.authentication import CognitiveServicesCredentials as auth
 
 
-def search_images_bing(key, term, min_sz=128, max_images=150):
+def search_images_bing(key, term, min_sz=128, max_images=110):
     params = {'q': term, 'count': max_images, 'min_height': min_sz, 'min_width': min_sz}
     headers = {"Ocp-Apim-Subscription-Key": key}
     search_url = "https://api.bing.microsoft.com/v7.0/images/search"
@@ -24,7 +24,13 @@ def search_images_bing(key, term, min_sz=128, max_images=150):
 URL = 'https://dog.ceo/api/breeds/list/all'
 
 result = requests.get(url = URL).json()
-searchText = [val for val in result['message']]
+searchText = []
+for val in result['message'].items():
+    if len(val[1]) > 0:
+        for type in val[1]:
+            searchText.append(f'{type} {val[0]}')
+    else:
+        searchText.append(val[0])
 
 path = Path('Dog_Types')
 

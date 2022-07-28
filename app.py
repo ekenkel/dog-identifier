@@ -6,7 +6,13 @@ import json
 URL = 'https://dog.ceo/api/breeds/list/all'
 
 result = requests.get(url = URL).json()
-searchText = [val for val in result['message']]
+searchText = []
+for val in result['message'].items():
+    if len(val[1]) > 0:
+        for type in val[1]:
+            searchText.append(f'{type} {val[0]}')
+    else:
+        searchText.append(val[0])
 
 def classify_image(img):
     pred,idx,probs = learn.predict(img)
