@@ -12,7 +12,7 @@ license: apache-2.0
 
 # Dog Identifier
 
-[Link to Running Application](https://huggingface.co/spaces/ekenkel/dog-identifier)
+I created a model using fastai and pytorch that can recognize 96 breeds of dogs.
 
 I created a model using fastai and pytorch that can recognize 146 breeds of dogs.
 
