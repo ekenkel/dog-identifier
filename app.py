@@ -2,6 +2,12 @@ from fastai.vision.all import *
 import gradio as gr
 import requests
 import json
+from torch import Tensor
+import torch.nn.functional as F
+
+class GELU(nn.Module):
+    def forward(self, input: Tensor) -> Tensor:
+        return F.gelu(input)
 
 URL = 'https://dog.ceo/api/breeds/list/all'
 
