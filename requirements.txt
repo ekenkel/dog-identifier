@@ -1,5 +1,4 @@
 timm
-json
 fastai
 torch
 gradio
