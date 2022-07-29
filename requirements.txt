@@ -3,5 +3,4 @@ torch
 gradio
 numpy
 pandas
-timm
 azure-cognitiveservices-search-imagesearch
