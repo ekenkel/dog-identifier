@@ -1,13 +1,12 @@
+import timm
 from fastcore.all import *
 from fastdownload import download_url
 from fastai.vision.widgets import *
 from fastai.vision.all import *
-# import gradio as gr
 import os, shutil
 import time
 import requests
 import json
-import timm
 from azure.cognitiveservices.search.imagesearch import ImageSearchClient as api
 from msrest.authentication import CognitiveServicesCredentials as auth
 
