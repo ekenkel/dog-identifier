@@ -1,6 +1,6 @@
 ---
 title: Dog Identifier
-emoji: 😻
+emoji: 🦮
 colorFrom: indigo
 colorTo: indigo
 sdk: gradio
