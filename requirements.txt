@@ -1,3 +1,4 @@
+timm
 fastai
 torch
 gradio
