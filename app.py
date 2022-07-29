@@ -21,8 +21,8 @@ def classify_image(img):
 
 learn = load_learner('dogIdentifierModel.pkl')
 
-image = gr.inputs.Image(shape=(192, 192))
-label = gr.outputs.Label()
+image = gr.components.Image(shape=(192, 192))
+label = gr.components.Label()
 examples = ['golden-retriever.jpg', 'german-shepherd.jpg', 'pinscher.jpg', 'husky.jpg']
 
 intf = gr.Interface(fn=classify_image, inputs=image, outputs=label, examples=examples)

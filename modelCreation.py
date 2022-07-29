@@ -7,6 +7,7 @@ import os, shutil
 import time
 import requests
 import json
+import timm
 from azure.cognitiveservices.search.imagesearch import ImageSearchClient as api
 from msrest.authentication import CognitiveServicesCredentials as auth
 
@@ -73,7 +74,7 @@ dataloaders = DataBlock(
 ).dataloaders(path)
 
 
-learn = vision_learner(dataloaders, resnet18, metrics=error_rate)
-learn.fine_tune(25)
+learn = vision_learner(dataloaders, 'convnext_tiny_in22k', metrics=error_rate)
+learn.fine_tune(18)
 
 learn.export('dogIdentifierModel.pkl')
