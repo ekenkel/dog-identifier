@@ -27,5 +27,5 @@ I randomly split the data:
 - 80% training set
 - 20% validation set
 
-After resizing the images to be 128 x 128 px, I trained using the ConvNeXt-22k convolution neural network  and 18 epochs.
+After resizing the images to be 128 x 128 px, I trained using the ConvNeXt-22k convolution neural network and 18 epochs.
 
