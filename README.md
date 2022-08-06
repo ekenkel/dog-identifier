@@ -18,7 +18,7 @@ license: apache-2.0
 
 ---
 
-I created a model using fastai and pytorch that can recognize 146 breeds of dogs with 75% accuracy.
+I created a model using fastai and pytorch that can recognize 146 breeds of dogs with 82% accuracy.
 
 I used the [Dog API](https://dog.ceo/dog-api/documentation/) to get the breeds, then collected 105 images for each using [Bing Search API](https://docs.microsoft.com/en-us/azure/cognitive-services/bing-web-search/). Due to memory restrictions, I could not increase the dataset.
 
