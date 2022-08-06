@@ -21,7 +21,7 @@ def classify_image(img):
 
 learn = load_learner('dogIdentifierModel.pkl')
 
-image = gr.components.Image(shape=(192, 192))
+image = gr.components.Image(shape=(224, 224))
 label = gr.components.Label()
 examples = ['golden-retriever.jpg', 'german-shepherd.jpg', 'doberman.jpg', 'husky.jpg']
 

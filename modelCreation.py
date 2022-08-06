@@ -54,7 +54,7 @@ for o in searchText:
     try:
         dest = (path / o)
         dest.mkdir(exist_ok=True, parents=True)
-        results = search_images_bing(key, f'{o} dog photo')
+        results = search_images_bing(key, f'{o} dog photos')
         download_images(dest, urls=results.attrgot('contentUrl'))
         resize_images(path/o, max_size=460, dest=path/o)
     except shutil.SameFileError:
