@@ -11,7 +11,7 @@ from azure.cognitiveservices.search.imagesearch import ImageSearchClient as api
 from msrest.authentication import CognitiveServicesCredentials as auth
 
 
-def search_images_bing(key, term, min_sz=128, max_images=110):
+def search_images_bing(key, term, min_sz=128, max_images=105):
     params = {'q': term, 'count': max_images, 'min_height': min_sz, 'min_width': min_sz}
     headers = {"Ocp-Apim-Subscription-Key": key}
     search_url = "https://api.bing.microsoft.com/v7.0/images/search"
@@ -56,6 +56,7 @@ for o in searchText:
         dest.mkdir(exist_ok=True, parents=True)
         results = search_images_bing(key, f'{o} dog photo')
         download_images(dest, urls=results.attrgot('contentUrl'))
+        resize_images(path/o, max_size=460, dest=path/o)
     except shutil.SameFileError:
         pass
 
@@ -69,11 +70,12 @@ dataloaders = DataBlock(
     get_items=get_image_files,
     splitter=RandomSplitter(valid_pct=0.2, seed=42),
     get_y=parent_label,
-    item_tfms=Resize(128)
+    item_tfms=Resize(460),
+    batch_tfms=aug_transforms(size=224, min_scale=0.75)
 ).dataloaders(path)
 
 
-learn = vision_learner(dataloaders, 'convnext_tiny_in22k', metrics=error_rate)
-learn.fine_tune(18)
+learn = vision_learner(dataloaders, 'convnext_tiny_in22k', metrics=error_rate).to_fp16()
+learn.fine_tune(8, freeze_epochs=3)
 
 learn.export('dogIdentifierModel.pkl')
