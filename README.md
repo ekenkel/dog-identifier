@@ -27,7 +27,7 @@ I randomly split the data:
 - 80% training set
 - 20% validation set
 
-I trained using the ConvNeXt-22k convolution neural network and 11 epochs.
+I trained using the ConvNeXt-22k convolution neural network architecture with 11 epochs and a base learning rate of 1e-3.
 
 I previously attained 75% accuracy. I made improvements by resizing each image to the same dimension (460x460 px) and then doing augmentations on the batches (distortion, lighting, cropping). I also froze the pretrained model (ConvNeXt-22k) layers, and trained my newly added layers for 3 epochs. I saved time and GPU memory by using half-precision floating point where applicable during training.
 
