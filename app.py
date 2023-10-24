@@ -1,11 +1,11 @@
 from fastai.vision.all import load_learner
 import gradio as gr
-import pathlib
+# import pathlib
 
 # For the posix path error: when you train your model on colab/gradient and download it, then do inference on Windows.
 # Redirect PosixPath to WindowsPath:
-temp = pathlib.PosixPath
-pathlib.PosixPath = pathlib.WindowsPath
+# temp = pathlib.PosixPath
+# pathlib.PosixPath = pathlib.WindowsPath
 
 
 # Data below sourced from:
