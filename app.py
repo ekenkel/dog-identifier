@@ -1,7 +1,7 @@
 from fastai.vision.all import load_learner
 from PIL import Image
 import gradio as gr
-import pathlib
+# import pathlib
 from pillow_heif import register_heif_opener
 import pillow_avif
 
@@ -9,8 +9,8 @@ register_heif_opener()
 
 # For the posix path error: when you train your model on colab/gradient and download it, then do inference on Windows.
 # Redirect PosixPath to WindowsPath:
-temp = pathlib.PosixPath
-pathlib.PosixPath = pathlib.WindowsPath
+# temp = pathlib.PosixPath
+# pathlib.PosixPath = pathlib.WindowsPath
 
 
 # Data below sourced from:
