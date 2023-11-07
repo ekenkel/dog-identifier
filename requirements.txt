@@ -9,3 +9,4 @@ Pillow==9.2.0
 uvicorn==0.18.2
 pillow-avif-plugin==1.4.1
 pillow-heif==0.13.1
+httpx==0.24.1
